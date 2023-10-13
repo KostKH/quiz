@@ -27,7 +27,7 @@ async def get_questions(number: int, quiz_id: UUID) -> list[Question]:
             add_date=datetime.now(),
         )
         questions.append(question)
-    return questions
+    return questions[:number]
 
 
 async def get_and_save_questions(

@@ -18,6 +18,14 @@ class QuestionCRUD():
         по первичному ключу:`question_id`."""
         return await session.get(Question, obj_id)
 
+    async def get_all(
+        self,
+        session: db_engine.AsyncSession
+    ) -> list[Question]:
+        """Метод получает все объекты из таблицы question."""
+        objects = await session.scalars(select(Question))
+        return objects.all()
+
     async def get_next_quiz_question(
         self,
         quiz_id: str,
