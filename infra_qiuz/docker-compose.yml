@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+  db:
+    image: postgres:14.0-alpine
+    volumes:
+      - quiz_db:/var/lib/postgresql/data/
+    networks:
+      - quiz_network
+    env_file:
+      - ./.env
+
+  app:
+    image: kostkh/quiz:v1.0.0
+    restart: always
+    ports:
+      - 8000:8000
+    networks:
+      - quiz_network
+    depends_on:
+      - db
+    env_file:
+      - ./.env
+
+volumes:
+  quiz_db:
+
+networks:
+  quiz_network:
